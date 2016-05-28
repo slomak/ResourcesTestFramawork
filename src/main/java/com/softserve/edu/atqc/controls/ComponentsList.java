@@ -35,7 +35,9 @@ public class ComponentsList implements IComponentsList {
 		return result;
 	}
 	
-	
+	public int labeleListSize(){
+		return labeleList.size();
+	}
 	
 	
 	

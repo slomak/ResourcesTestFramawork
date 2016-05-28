@@ -45,11 +45,6 @@ public class UserService {
     public Long getUserIdByLogin(String login) {
         return UserDao.get().getUserDBByLogin(login).getUserId();
     }
-    
-    //TODO remove hardcode
-    public boolean updateUserNonLocked(String login){
-    	return UserDao.get().updateByFieldNameWithCondition("account_non_locked", "1", "login", login);
-    }
 
     // Delete
     public boolean deleteUsersByLogin(String login) {

@@ -9,15 +9,13 @@
 		<parameter name="language" value="english" />
 <!-- 		<parameter name="browserName" value="Chrome" /> -->
 		<classes>
-			<!--
-			<class name="com.softserve.edu.AppTest">
-				<methods>
-					<include name="testApp" />
-				</methods>
-			</class>
-			 -->
 			<class name="com.softserve.edu.rs.tests.LoginAndAuthorizationTests" />
 			<class name="com.softserve.edu.rs.tests.UnsuccessfullLogigTest" />
+			<class name="com.softserve.edu.rs.tests.SearchByCommunitieTest" />
+			<class name="com.softserve.edu.rs.tests.SearchByNameTest" />
+			<class name="com.softserve.edu.rs.tests.SearchByEmailTest" />
+			<class name="com.softserve.edu.rs.tests.SearchByLastNameTest" />
+			<class name="com.softserve.edu.rs.tests.SearchByLoginTest" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

@@ -2,6 +2,7 @@ package com.softserve.edu.atqc.specs;
 
 import org.testng.Assert;
 
+import com.softserve.edu.atqc.controls.IComponentsList;
 import com.softserve.edu.atqc.controls.ILabel;
 import com.softserve.edu.atqc.controls.ILink;
 import com.softserve.edu.atqc.controls.ITextField;
@@ -91,6 +92,10 @@ public class FlexAssert {
     // public ButtonCriteria forElement(IButton button) {
     // return ButtonCriteria.get(button);
     // }
+    
+    public IComponentListCriteria forElement(IComponentsList list) {
+        return ComponentListCriteria.get(list);
+    }
 
     public ITextFieldCriteria forElement(ITextField textField) {
         return TextFieldCriteria.get(textField);

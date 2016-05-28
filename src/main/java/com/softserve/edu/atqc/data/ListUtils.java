@@ -36,8 +36,6 @@ public final class ListUtils {
 
 	public Object[][] toMultiArrayNumber(List<?> list, int columnsNumber) {
 		if (columnsNumber < 2) {
-			// TODO Develop Custom Exception
-			//throw new RuntimeException(COLUMNS_NUMBER_ERROR);
 			throw new GeneralCustomException(COLUMNS_NUMBER_ERROR);
 		}
 		Object[][] array = new Object[list.size()][columnsNumber];
@@ -51,8 +49,6 @@ public final class ListUtils {
 
 	public Object[][] toMultiArrayNumber(int columnsNumber, List<?> list) {
 		if (columnsNumber < 2) {
-			// TODO Develop Custom Exception
-			//throw new RuntimeException(COLUMNS_NUMBER_ERROR);
 			throw new GeneralCustomException(COLUMNS_NUMBER_ERROR);
 		}
 		Object[][] array = new Object[list.size()][columnsNumber];
@@ -74,8 +70,6 @@ public final class ListUtils {
 
 	public Object[][] toMultiArrayNumber(List<ApplicationSources> applicationSources, List<?> list) {
 		if (applicationSources.size() != list.size()) {
-			// TODO Develop Custom Exception
-			//throw new RuntimeException(LISTS_EQUAL_ERROR);
 			throw new GeneralCustomException(LISTS_EQUAL_ERROR);
 		}
 		Object[][] array = toMultiArrayNumber(2, list);
@@ -85,17 +79,12 @@ public final class ListUtils {
 		return array;
 	}
 
-	//public Object[][] toMultiArrayNumber(ApplicationSources applicationSources, List<?> list[]) {
 	public Object[][] toMultiArrayNumberParams(ApplicationSources applicationSources, List<?>... list) {
 		if ((list == null) || (list.length == 0)) {
-			// TODO Develop Custom Exception
-			//throw new RuntimeException(ARRAY_LISTS_ERROR);
 			throw new GeneralCustomException(ARRAY_LISTS_ERROR);
 		}
 		for (int i = 1; i < list.length; i++) {
 			if (list[0].size() != list[i].size()) {
-				// TODO Develop Custom Exception
-				//throw new RuntimeException(LISTS_EQUAL_ERROR);
 				throw new GeneralCustomException(LISTS_EQUAL_ERROR);
 			}
 		}

@@ -14,16 +14,15 @@ import com.softserve.edu.atqc.controls.TextField;
 public class ActiveAdminSearchPage extends AdminHomePage {
 	
 	public static enum ItemsPerPage {
-		TEN("10"), TWENTYFIVE("25"), FIFTY("50"), HUNDRED("100");
+		TEN(10), TWENTYFIVE(25), FIFTY(50), HUNDRED(100);
 
-		private String field;
+		private int field;
 
-		private ItemsPerPage(String field) {
+		private ItemsPerPage(int field) {
 			this.field = field;
 		}
 
-		@Override
-		public String toString() {
+		public int toInt() {
 			return this.field;
 		}
 	}
@@ -90,6 +89,30 @@ public class ActiveAdminSearchPage extends AdminHomePage {
 	public ActiveAdminSearchPage() {
 		this.controls = new ActiveAdminSearchPageUIMap();
 		this.tableControls = new SearchTableUIMap();
+	}
+	
+	public int getSearchTableItemQuantity(){
+		return getListLogins().size();
+	}
+	
+	public IComponentsList getLogins(){
+		return tableControls.logins;
+	}
+	
+	public IComponentsList getCommunitiesTableList(){
+		return tableControls.communities;
+	}
+	
+	public IComponentsList getEmailsTableList(){
+		return tableControls.emails;
+	}
+	
+	public IComponentsList getNamesTableList(){
+		return tableControls.firstNames;
+	}
+	
+	public IComponentsList getLastNamesTableList(){
+		return tableControls.lastNames;
 	}
 	
 	public List<String> getListNames(){

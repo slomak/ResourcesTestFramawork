@@ -1,12 +1,12 @@
 package com.softserve.edu.rs.tests;
 
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import com.softserve.edu.atqc.specs.FlexAssert;
 import com.softserve.edu.rs.data.apps.Application;
@@ -22,7 +22,6 @@ import com.softserve.edu.rs.pages.UserHomePage;
 public class LoginAndAuthorizationTests {
 
 	Application application;
-	SoftAssert s_assert;
 
 	@BeforeClass
 	public void setUpApp() {
@@ -32,12 +31,10 @@ public class LoginAndAuthorizationTests {
 
 	@BeforeMethod
 	public void loginApp() {
-		s_assert = new SoftAssert();
 	}
 
 	@AfterMethod
 	public void logOutApp() {
-		s_assert = null;
 		application.logout();
 	}
 
@@ -45,24 +42,48 @@ public class LoginAndAuthorizationTests {
 	public void shotDownApp() {
 		application.quit();
 	}
+	
+	@DataProvider
+    public Object[][] getAllRolesUsers(ITestContext context) {
+		return new Object[][] { 
+				{ UserRepository.get().getAdmin() },
+				{ UserRepository.get().getCommissioner() },
+				{ UserRepository.get().getCoOwner() },
+				{ UserRepository.get().getRegistrator() }
+		};
+    }
 
 	@DataProvider
 	public Object[][] getAdmin() {
 		return new Object[][] { { UserRepository.get().getAdmin() } };
 	}
 
-	@Test(dataProvider = "getAdmin")
+//	@Test(dataProvider = "getAdmin")
 	public void smokeLoginTest(IUser user) {
 		HomePage homePage = application.load().successAdminLogin(user);
 		FlexAssert.get()
 		.forElement(homePage.getLoginAccount())
 			.isVisible()
 			.valueMatch(user.getAccount().getLogin());
-		//	.valueMatch("asdf")
+		FlexAssert.get().check();
+	}
+	
+	@Test(dataProvider = "getAllRolesUsers")
+	public void menuAccountTest(IUser user) {
+		HomePage homePage = application.load().successUserLogin(user);
+		FlexAssert.get()
+		.forElement(homePage.getChangePassword())
+			.isVisible()
+			.next()
+		.forElement(homePage.getResetPassword())
+			.isVisible()
+			.next()
+		.forElement(homePage.getLogout())
+			.isVisible();
 		FlexAssert.get().check();
 	}
 
-	@Test(dependsOnMethods = { "smokeLoginTest" }, dataProvider = "getAdmin")
+//	@Test(dependsOnMethods = { "smokeLoginTest" }, dataProvider = "getAdmin")
 	public void adminAuthorizationTest(IUser user) {
 		AdminHomePage adminHomePage = application.load().successAdminLogin(user);
 		FlexAssert.get()
@@ -88,7 +109,7 @@ public class LoginAndAuthorizationTests {
 		return new Object[][] { { UserRepository.get().getCommissioner() } };
 	}
 
-	@Test(dependsOnMethods = { "smokeLoginTest" }, dataProvider = "getComissioner")
+//	@Test(dependsOnMethods = { "smokeLoginTest" }, dataProvider = "getComissioner")
 	public void comissionerAuthorizationTest(IUser user) {
 		CommissionerHomePage commissionerHomePage = application.load()
 				.successCommissionerLogin(user);
@@ -110,7 +131,7 @@ public class LoginAndAuthorizationTests {
 		return new Object[][] { { UserRepository.get().getRegistrator() } };
 	}
 
-	@Test(dependsOnMethods = { "smokeLoginTest" }, dataProvider = "getRegistrator")
+//	@Test(dependsOnMethods = { "smokeLoginTest" }, dataProvider = "getRegistrator")
 	public void registratorAuthorizationTest(IUser user) {
 		RegistratorHomePage registratorHomePage = application.load()
 				.successRegistratorLogin(user);
@@ -138,7 +159,7 @@ public class LoginAndAuthorizationTests {
 		return new Object[][] { { UserRepository.get().getCoOwner() } };
 	}
 
-	@Test(dependsOnMethods = { "smokeLoginTest" }, dataProvider = "getUser")
+//	@Test(dependsOnMethods = { "smokeLoginTest" }, dataProvider = "getUser")
 	public void userAuthorizationTest(IUser user) {
 		UserHomePage userHomePage = application.load()
 				.successUserPageLogin(user);
